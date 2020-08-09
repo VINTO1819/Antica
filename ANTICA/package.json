@@ -1,0 +1,40 @@
+{
+  "name": "antica",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./dist/electron.js",
+  "scripts": {
+    "start": "cd app && concurrently \" npm run-script start\" \" cd ../ && wait-on http://localhost:3000 && electron .\"",
+    "build": "cd app && npm run-script build && cd ../ && electron-builder build",
+    "release": "cd app && npm run-script build && cd ../ && electron-builder build --publish=always",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "build":{
+    "asar": true,
+    "appId": "com.vinto.antica",
+    "productName": "antica",
+    "files":[
+      "./app/build/*",
+      "./dist/electron.js",
+      "./package.json"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64",
+            "ia32"
+          ]
+        }
+      ]
+    }
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "custom-electron-titlebar": "^3.2.3",
+    "electron": "^9.1.2",
+    "electron-is-dev": "^1.2.0"
+  }
+}
