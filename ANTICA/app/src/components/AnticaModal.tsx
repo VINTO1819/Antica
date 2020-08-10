@@ -15,7 +15,7 @@ export default class AnticaModal extends React.Component<props>{
                 verticalAlign:"center",justifyContent:"center", alignItems:"center"}}
                 onClick={this.props.isForcing ? undefined : this.props.onPressCloseButton}>
                     <div style={{
-                        boxSizing:"border-box", position:"relative", backgroundColor:"#202330", width:"65vh", height:"90%",
+                        boxSizing:"border-box", position:"relative", backgroundColor:"#202330", width:"65vh",
                         boxShadow:"0 0 6px 0 rgba(0, 0, 0, 0.6)", borderRadius:"2.5px",
                         visibility:this.props.visible ? "visible" : "hidden",
                         padding:"10px", overflow:"hidden", margin: "20px auto",
@@ -27,7 +27,9 @@ export default class AnticaModal extends React.Component<props>{
                         </div>
                         <div style={{marginTop:10}}/>
 
-                        {this.props.children}
+                        <div>
+                            {this.props.children}
+                        </div> 
 
                     </div>
                 </div>
