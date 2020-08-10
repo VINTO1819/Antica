@@ -8,7 +8,7 @@ import SelectScreen from "./modalViews/SelectScreen"
 interface state{
     isShowScreenModal:boolean //스크린을 정하는 모달이 열려있는지
     Screens:Array<any>
-    selectedScreen:{ScreenID:string, ScreenName:string}
+    selectedScreen:{ScreenID:string, ScreenName:string, Type:ScreenType}
 }
 
 export default class Main extends React.Component<any, state>{
@@ -16,7 +16,7 @@ export default class Main extends React.Component<any, state>{
         this.setState({
             Screens:[],
             isShowScreenModal:false,
-            selectedScreen:{ScreenID:"", ScreenName:""}
+            selectedScreen:{ScreenID:"", ScreenName:"", Type:0}
         })
         require("./../renderers/StreamingRender").getScreens((screens:any) => {
             console.log(screens)
@@ -26,7 +26,8 @@ export default class Main extends React.Component<any, state>{
 
     render(){
         return(
-            <div className="ViewContainer" style={{display:"flex", flexDirection:"column"}}>
+            <div style={{display:"flex", flexDirection:"column"}}>
+                <div className="ViewContainer" style={{display:"flex", flexDirection:"column"}}>
                 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"></link>
                 <h1 style={{marginTop:10}}>Streaming</h1>
                 <div style={{display:"flex"}}>
@@ -36,7 +37,7 @@ export default class Main extends React.Component<any, state>{
                         <textarea placeholder="설명" style={{flex:1, fontSize:16, color:"white", resize:"none"}}></textarea>
                     </div>
                 </div>
-                <p style={{fontSize:16, marginBottom:"15px"}}><strong>{(this.state.selectedScreen.ScreenID + this.state.selectedScreen.ScreenName != "") ? `설정된 화면 : ${this.state.selectedScreen.ScreenName}()` : "화면 미설정됨"}</strong></p>
+                <p style={{fontSize:16, marginBottom:"15px"}}><strong>{(this.state.selectedScreen.ScreenID + this.state.selectedScreen.ScreenName != "") ? `설정된 화면 : ${this.state.selectedScreen.ScreenName}(${this.state.selectedScreen.Type})` : "화면 미설정됨"}</strong></p>
 
                 <div>
 
@@ -55,10 +56,12 @@ export default class Main extends React.Component<any, state>{
                     </div>
                 </div>
 
+                </div>
+                
                 <AnticaModal Title="화면 설정" onPressCloseButton={() => {this.setState({isShowScreenModal:false})}} visible={this.state.isShowScreenModal} isForcing={true}>
-                    <SelectScreen RunningProcesses={this.state.Screens} onSubmit={(ScreenID:string, ScreenName:string) => {
+                    <SelectScreen RunningProcesses={this.state.Screens} onSubmit={(ScreenID:string, ScreenName:string, Type:ScreenType) => {
                         this.setState({isShowScreenModal:false})
-                        this.setState({selectedScreen:{ScreenID:ScreenID, ScreenName:ScreenName}})
+                        this.setState({selectedScreen:{ScreenID:ScreenID, ScreenName:ScreenName, Type:Type}})
                         require("./../renderers/StreamingRender").startRenderScreen(ScreenID)
                     }}/>
                 </AnticaModal>

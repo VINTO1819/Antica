@@ -8,7 +8,7 @@ interface state{
 
 interface props{
     RunningProcesses:Array<any>
-    onSubmit:(ScreenID:string, ScreenName:string) => void
+    onSubmit:(ScreenID:string, ScreenName:string, AppType:number) => void
 }
 
 export default class SelectScreen extends React.Component<props, state>{
@@ -19,10 +19,10 @@ export default class SelectScreen extends React.Component<props, state>{
 
     render(){
         return(
-            <div style={{overflow:"hidden", display:"flex", flexDirection:"column", height:"100%"}}>
-                <div style={{flex:2}}>
+            <div style={{ display:"flex", flexDirection:"column", height:"100%"}}>
+                <div>
                     <video id="videoSelectPreviewer" style={{width:"100%", borderRadius:2.5, backgroundColor:"black", overflow:"hidden"}}/>
-                    <select id="AppTypeSelector" style={{backgroundColor:"blue", width:"10vh", height:"10vh"}}>
+                    <select id="AppTypeSelector" style={{color:"white", backgroundColor:"#202330", fontSize:18}} className="browser-default">
                         <option value="0">일반 앱</option>
                         <optgroup label="게임">
                             <option value="1">일반 게임</option>
@@ -31,16 +31,18 @@ export default class SelectScreen extends React.Component<props, state>{
                         <option value="3">개발 도구</option>
                     </select>
                 </div>
-                <div style={{overflowY:"scroll", flex:1.5}}>
+                <div style={{overflowY:"scroll", height:"30vh"}}>
                     {this.props.RunningProcesses.map(it => <ScreenItem ScreenID={it.id} ScreenName={it.name} onSelect={(ScreenID:string, ScreenName:string) => {
                         this.setState({selectedItem:{ScreenID:ScreenID, ScreenName:ScreenName}})
                         require("./../../renderers/StreamingRender").startRenderPreview(ScreenID)
                     }}/>)}
                 </div>
-                <div style={{flex:0.5, textAlign:"center"}}>
+                <div style={{textAlign:"center"}}>
                     <Button text="Submit" onclick={() => {
                         if(this.state.selectedItem.ScreenID + this.state.selectedItem.ScreenName != ""){
-                            this.props.onSubmit(this.state.selectedItem.ScreenID, this.state.selectedItem.ScreenName)
+                            var Selector = (document.getElementById("AppTypeSelector") as any)
+                            this.props.onSubmit(this.state.selectedItem.ScreenID, this.state.selectedItem.ScreenName, 
+                                Selector.options[Selector.selectedIndex].value)
                         }else{
                             alert("화면을 적용하려면 선택해주세요")
                         }
