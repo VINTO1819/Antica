@@ -22,7 +22,7 @@ export default class SelectScreen extends React.Component<props, state>{
             <div style={{overflow:"hidden", display:"flex", flexDirection:"column", height:"100%"}}>
                 <div style={{flex:2}}>
                     <video id="videoSelectPreviewer" style={{width:"100%", borderRadius:2.5, backgroundColor:"black", overflow:"hidden"}}/>
-                    <select name="fluit" style={{backgroundColor:"blue", width:"100%"}}>
+                    <select id="AppTypeSelector" style={{backgroundColor:"blue", width:"10vh", height:"10vh"}}>
                         <option value="0">일반 앱</option>
                         <optgroup label="게임">
                             <option value="1">일반 게임</option>
