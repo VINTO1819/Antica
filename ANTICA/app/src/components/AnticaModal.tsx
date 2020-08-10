@@ -3,19 +3,23 @@ import React from "react"
 interface props{
     Title:string,
     onPressCloseButton:() => void,
-    visible:boolean
+    visible:boolean,
+    isForcing:boolean
 }
 
 export default class AnticaModal extends React.Component<props>{
     render(){
         return (
             <div style={{visibility:this.props.visible ? "visible" : "hidden", boxSizing:"border-box", display:"block", position:"fixed", backgroundColor:"rgba(0,0,0, 0.6)", zIndex:999, width:"100%", height:"100%"}}>
-                <div style={{visibility:this.props.visible ? "visible" : "hidden", boxSizing:"border-box", display:"block", position:"fixed", zIndex:1000, overflow:"auto", outline:0, height:"100%", width:"100%", justifyContent:"center"}}>
+                <div style={{visibility:this.props.visible ? "visible" : "hidden", boxSizing:"border-box", display:"block", position:"fixed", zIndex:1000, overflow:"auto", outline:0, height:"100%", width:"100%", 
+                verticalAlign:"center",justifyContent:"center", alignItems:"center"}}
+                onClick={this.props.isForcing ? undefined : this.props.onPressCloseButton}>
                     <div style={{
-                        boxSizing:"border-box", position:"relative", backgroundColor:"#202330", width:"60%", height:"70%",
-                        top: "10%", left:"14%", boxShadow:"0 0 6px 0 rgba(0, 0, 0, 0.6)", borderRadius:"2.5px",
+                        boxSizing:"border-box", position:"relative", backgroundColor:"#202330", width:"65vh", height:"90%",
+                        boxShadow:"0 0 6px 0 rgba(0, 0, 0, 0.6)", borderRadius:"2.5px",
                         visibility:this.props.visible ? "visible" : "hidden",
-                        padding:"10px", overflow:"hidden"
+                        padding:"10px", overflow:"hidden", margin: "20px auto",
+                        zIndex:1001
                     }}>
                         <div style={{display:"flex"}}>
                             <h4 style={{margin:0}}>{this.props.Title}</h4>

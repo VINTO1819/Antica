@@ -55,7 +55,7 @@ export default class Main extends React.Component<any, state>{
                     </div>
                 </div>
 
-                <AnticaModal Title="화면 설정" onPressCloseButton={() => {this.setState({isShowScreenModal:false})}} visible={this.state.isShowScreenModal}>
+                <AnticaModal Title="화면 설정" onPressCloseButton={() => {this.setState({isShowScreenModal:false})}} visible={this.state.isShowScreenModal} isForcing={true}>
                     <SelectScreen RunningProcesses={this.state.Screens} onSubmit={(ScreenID:string, ScreenName:string) => {
                         this.setState({isShowScreenModal:false})
                         this.setState({selectedScreen:{ScreenID:ScreenID, ScreenName:ScreenName}})
