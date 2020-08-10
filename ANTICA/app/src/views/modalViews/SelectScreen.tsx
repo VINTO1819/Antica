@@ -23,12 +23,12 @@ export default class SelectScreen extends React.Component<props, state>{
                 <div style={{flex:2}}>
                     <video id="videoSelectPreviewer" style={{width:"100%", borderRadius:2.5, backgroundColor:"black", overflow:"hidden"}}/>
                     <select name="fluit" style={{backgroundColor:"blue", width:"100%"}}>
-                        <option value="바나나">일반 앱</option>
+                        <option value="0">일반 앱</option>
                         <optgroup label="게임">
-                            <option value="사이다">일반 게임</option>
-                            <option value="콜라">Flight Simulator</option>
+                            <option value="1">일반 게임</option>
+                            <option value="2">Flight Simulator</option>
                         </optgroup>
-                        <option value="사과">개발 도구</option>
+                        <option value="3">개발 도구</option>
                     </select>
                 </div>
                 <div style={{overflowY:"scroll", flex:1.5}}>
@@ -52,5 +52,8 @@ export default class SelectScreen extends React.Component<props, state>{
 }
 
 export enum ScreenType{
-
+    CommonApp,
+    CommonGame,
+    FlightSimulator,
+    DevelopTools
 }
