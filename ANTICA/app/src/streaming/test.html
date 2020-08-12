@@ -1,0 +1,52 @@
+<html>
+
+<body>
+    <style>
+        #outgoing {
+            width: 600px;
+            word-wrap: break-word;
+            white-space: normal;
+        }
+    </style>
+    <video id="viewer" autoplay style="background-color: black;" height="450px" width="800px"></video>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/simple-peer/9.7.2/simplepeer.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+    <script>
+        let isConnected = false
+        var ClientPeer = new SimplePeer()
+        var Socket = io.connect("http://127.0.0.1:9503")
+        Socket.on("toClient", Server => {
+            console.log("서버로부터 RTC 객체를 수신받음")
+            ClientPeer.on("signal", data => {
+                Server.signal(data)
+            })
+            ClientPeer.signal(Server)
+        })
+        var ID = setInterval(function () {
+            if (isConnected) {
+                clearInterval(ID)
+            } else {
+                Socket.emit("toRenderer", ClientPeer)
+            }
+        }, 6000)
+        console.log("서버에게 내 RTC 객체 전송")
+
+        ClientPeer.on('stream', stream => {
+            console.log("스트림 수신받음")
+            isConnected = true
+            // got remote video stream, now let's show it in a video tag
+            var video = document.getElementById('viewer')
+
+            if ('srcObject' in video) {
+                video.srcObject = stream
+            } else {
+                video.src = window.URL.createObjectURL(stream) // for older browsers
+            }
+
+            video.play()
+        })
+
+    </script>
+</body>
+
+</html>
