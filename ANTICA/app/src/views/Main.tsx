@@ -18,6 +18,9 @@ export default class Main extends React.Component<any, state>{
             isShowScreenModal:false,
             selectedScreen:{ScreenID:"", ScreenName:"", Type:0}
         })
+    }
+
+    componentDidMount(){
         require("./../renderers/StreamingRender").getScreens((screens:any) => {
             console.log(screens)
             this.setState({Screens:screens})
@@ -30,11 +33,11 @@ export default class Main extends React.Component<any, state>{
                 <div className="ViewContainer" style={{display:"flex", flexDirection:"column"}}>
                 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"></link>
                 <h1 style={{marginTop:10}}>Streaming</h1>
-                <div style={{display:"flex"}}>
+                <div style={{display:"flex", maxHeight:"40vh"}}>
                     <video id="videoPreviewer" className="videoViewer" style={{backgroundColor:"black", borderRadius:2.5}}/>
                     <div style={{flex:1, display:"flex", flexDirection:"column"}}>
                         <input type="text" placeholder="제목" color="white" style={{color:"white"}}/>
-                        <textarea placeholder="설명" style={{flex:1, fontSize:16, color:"white", resize:"none"}}></textarea>
+                        <textarea placeholder="설명" style={{flex:2, fontSize:16, color:"white", resize:"none"}}></textarea>
                     </div>
                 </div>
                 <p style={{fontSize:16, marginBottom:"15px"}}><strong>{(this.state.selectedScreen.ScreenID + this.state.selectedScreen.ScreenName != "") ? `설정된 화면 : ${this.state.selectedScreen.ScreenName}(${this.state.selectedScreen.Type})` : "화면 미설정됨"}</strong></p>
