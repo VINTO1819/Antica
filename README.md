@@ -5,7 +5,7 @@ Introduction
 -----------
 앤티카는 경량 비디오 스트리밍 서비스입니다.   
 
- * 2020/08/13(목) - 스트리밍 기능 개발영상(RADWIMPS의 We'll be alright 재생)
+ * 2020/08/13(목) - 스트리밍 기능 개발영상(RADWIMPS의 [We'll be alright](https://www.youtube.com/watch?v=t6Z0oSm4F-o) 재생)
 <img src="https://github.com/VINTO1819/Antica/blob/master/Screenshots/2020-08-13-001.gif?raw=true" alt="drawing" width="400"/>
 
 Features
