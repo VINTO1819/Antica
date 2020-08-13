@@ -1,9 +1,14 @@
 # Antica
 <img src="https://github.com/VINTO1819/Antica/blob/master/ANTICA/app/public/antica.png?raw=true" alt="drawing" width="200"/>
-   
-앤티카는 경량 비디오 스트리밍 서비스입니다.
 
-제공 예정인 기능
+Introduction
+-----------
+앤티카는 경량 비디오 스트리밍 서비스입니다.   
+
+ * 2020/08/13(목) - 스트리밍 기능 개발영상(RADWIMPS의 We'll be alright 재생)
+<img src="https://github.com/VINTO1819/Antica/blob/master/Screenshots/2020-08-13-001.gif?raw=true" alt="drawing" width="400"/>
+
+Features
 ===========
 ✅ : 완전 구현됨   
 🔄 : 일부 구현됨   
@@ -23,10 +28,7 @@
         * 특정 줄에 Code Insert 기능
         * 청취자가 사용자에게 코드파일 전송/반영 가능
 
-완성된 기능
-===========
-
-기술적 구현
+Tech Stack
 ===========
 서버(사용자)
 -----------
@@ -37,15 +39,12 @@
 
 클라이언트(청취자)
 -----------
- * 웹 버전(방식 미확정)
+ * 웹 버전
     * 데이터 송수신 : Express + Socket.io
     * 웹앱 : React
-    * WebRTC
-    * 개발 계획
-        * 1안(데이터만 클라이언트에 전송하고 웹앱은 공식 사이트에서 수신) 
-        * 2안(웹앱과 데이터 모두 서버에서 전송) 
+    * Simple Peer
  * Android
     * Expo(또는 React Native CLI)
     * Typescript + React Native
     * Axios
-    * WebRTC
+    * Simple Peer
