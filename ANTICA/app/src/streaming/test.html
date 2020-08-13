@@ -13,23 +13,18 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
     <script>
         let isConnected = false
-        var ClientPeer = new SimplePeer()
-        var Socket = io.connect("http://127.0.0.1:9503")
-        Socket.on("toClient", Server => {
-            console.log("서버로부터 RTC 객체를 수신받음")
-            ClientPeer.on("signal", data => {
-                Server.signal(data)
-            })
-            ClientPeer.signal(Server)
+        var ClientPeer = new SimplePeer({ initiator: true})
+        var Socket = io.connect(window.location.protocol + "//" + window.location.hostname + ":9503")
+        console.log(window.location.protocol + "//" + window.location.hostname + ":9503")
+        Socket.on("toClient", ServerSignal => {
+            console.log("앱로부터 시그널을 수신받음")
+            ClientPeer.signal(ServerSignal)
         })
-        var ID = setInterval(function () {
-            if (isConnected) {
-                clearInterval(ID)
-            } else {
-                Socket.emit("toRenderer", ClientPeer)
-            }
-        }, 6000)
-        console.log("서버에게 내 RTC 객체 전송")
+        
+        ClientPeer.on("signal", ClientSignal => {
+            console.log("내 시그널을 받음")
+            Socket.emit("toRenderer", ClientSignal)
+        })
 
         ClientPeer.on('stream', stream => {
             console.log("스트림 수신받음")

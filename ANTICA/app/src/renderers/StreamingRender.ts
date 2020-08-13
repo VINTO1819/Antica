@@ -84,16 +84,17 @@ function handleStream(stream: MediaStream) {
   video.srcObject = stream
   video.onloadedmetadata = (e) => video.play()
 
-  var StreamPeer = new SimplePeer({ initiator: true, stream: stream })
+  var StreamPeer = new SimplePeer({ initiator: false, stream: stream })
 
   var RendererSocket = SocketIO.connect("http://localhost:9503")
   console.log("앱이 서버에 연결")
-  RendererSocket.on("toRenderer", (ClientPeer: SimplePeer.Instance) => {
+  RendererSocket.on("toRenderer", (ClientSignal: any) => {
     console.log("클라이언트에게서 요청을 받았습니다!")
-    StreamPeer.on("signal", data => {
-      ClientPeer.signal(data)
-    })
-    RendererSocket.emit("toClient", StreamPeer) //내 피어를 전송
+    StreamPeer.signal(ClientSignal)
+  })
+
+  StreamPeer.on("signal", StreamSignal => {
+    RendererSocket.emit("toClient", StreamSignal) //내 연결 데이터를 전송
   })
 }
 

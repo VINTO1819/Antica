@@ -13,6 +13,7 @@ SocketServer.on("connection", (Socket) => {
 
     Socket.on("toRenderer", (data) => { //렌더러에게 클라이언트의 Simple Peer 정보 전달
         console.log("클라이언트가 앱에게 요청보냄")
+        //Socket.broadcast.emit("toRenderer", {Signal:data, ID:Socket.id})
         Socket.broadcast.emit("toRenderer", data)
     })
 
